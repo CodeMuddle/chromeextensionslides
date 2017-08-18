@@ -1,0 +1,455 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Workshop : Introduction to Chrome Extension</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/white.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section data-id="1">
+                <section data-id="1.1">
+                    <h2>wORKSHOP : Introduction to Chrome Extension</h2>
+                </section>
+                <section data-id="1.2">
+                    <h3>Ajay Gopal Shrestha</h3>
+                    <p>Software Engineer Level III</p>
+                    <p>Fusemachines Nepal</p>
+                </section>
+                <section>
+                    <ul>
+                        <h5>My Introduction</h5>
+                    <p>
+                        I am a full-stack developer. I am a tech enthusiastic person. I have worked in frontend for past 4 years. I started working for fusemachines from February 2015. I am experienced in javascript (Ember, React, Angular, VueJs, UnderScope, Backbone, D3.js, jQuery, vanilla, chrome extensions, etc.), html, css, php, Java (grails and JSP), Python (Djyango and vanilla), C++. I am an active member of emberJS community. I am leading the frontend team here in Fusemachines Nepal for a year and half now.
+                    </p>
+                    </ul>
+                </section>
+            </section>
+            <section data-id="2" class="text-left">
+                <section>
+                    <h1>Agenda</h1>
+                </section>
+                <section data-id="2.1">
+                <ul>
+                    <h5>Introduction to Chrome Extension</h5>
+                    <li>What extension are</li>
+                    <li>Why you should work on extension</li>
+                </ul>
+                </section>
+                <section data-id="2.2">
+                    <ul>
+                    <h5>How to build Chrome Extensions</h5>
+                        <li>Technical Overview</li>
+                        <li>Step by step demo</li>
+                    </ul>
+                </section>
+                <section data-id="2.3">
+                    <ul>
+                    <h5>Key takeaways</h5>
+                    <h5>Q / A</h5>
+                    </ul>
+                </section>
+
+            </section>
+            <section data-id="3">
+                <section data-id="3.1">
+                    <h1>What Chrome Extensions are</h1>
+                </section>
+                <section data-id="3.2">
+                    <h5>What Chrome Extensions are</h5>
+                    <ul>
+                        <li class="fragment">Programs that enhance Google Chrome's functionality</li>
+                        <li class="fragment">Written in client side language specification(HTML, CSS, Javascript)</li>
+                        <li class="fragment">Assisted with buildin functionality given by chrome as APIs</li>
+                        <li class="fragment">Intalled easily, updated automatically.</li>
+                    </ul>
+                </section>
+                <section data-id="3.3">
+                    <h1>Why you should work on extension</h1>
+                </section>
+                <section data-id="3.4">
+                    <h5>Why you should work on extension</h5>
+                    <ul>
+                        <li class="fragment">Easy to build and use</li>
+                        <li class="fragment">Makes your day to day work faster and easier</li>
+                        <li class="fragment">It fun to build tools</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Examples</h5>
+                    <img src="img/ext.jpeg" alt="">
+                </section>
+            </section>
+            <section data-id="4">
+                <section data-id="4.1">
+                    <h1>Structure of Chrome Extension</h1>
+                </section>
+                <section data-id="4.1">
+                    <img src="img/chrome-extension-messaging.jpg" alt="">
+                </section>
+                <section data-id="4.2">
+                    <ul>
+                        <h5>Structure of an Extension</h5>
+                        <li>Manifest File - manifest.json</li>
+                        <li>Browser Action or Page Action</li>
+                        <li>Content Script</li>
+                        <li>Background Page</li>
+                        <li>Context Menu</li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <h5>Overview of the Extension API</h5>
+                        <p><b>chrome</b> is the top level object and exposes</p>
+                        <li>chrome.extension.*</li>
+                        <li>chrome.browserAction.*</li>
+                        <li>chrome.pageAction.*</li>
+                        <li>chrome.bookmarks.*</li>
+                        <li>chrome.tabs.*</li>
+                        <li>chrome.windows.*</li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <h5>Other APIs</h5>
+                        <p>Extension can also use</p>
+                        <li>Standard JavaScript and DOM APIs</li>
+                        <li>XMLHttpRequest (ajax)</li>
+                        <li>HTML 5 APIs</li>
+                    </ul>    
+                </section>    
+            </section>
+            <section>
+                <section>
+                    <h1>Manifest File - <small>manifest.json</small></h1>
+                </section>
+                <section>
+                    <pre>
+						<code data-trim data-noescape>
+{
+  // Required
+  "manifest_version": 2,
+  "name": "My Extension",
+  "version": "versionString",
+
+  // Recommended
+  "default_locale": "en",
+  "description": "A plain text description",
+  "icons": {...},
+
+  // Pick one (or none)
+  "browser_action": {...},
+  "page_action": {...},
+
+  // Optional
+  "author": ...,
+  "automation": ...,
+  "background": {
+    // Recommended
+    "persistent": false
+  },
+  "background_page": ...,
+  "chrome_settings_overrides": {...},
+  "chrome_ui_overrides": {
+    "bookmarks_ui": {
+      "remove_bookmark_shortcut": true,
+      "remove_button": true
+    }
+  },
+  "chrome_url_overrides": {...},
+  "commands": {...},
+  "content_capabilities": ...,
+  "content_scripts": [{...}],
+  "content_security_policy": "policyString",
+  "converted_from_user_script": ...,
+  "current_locale": ...,
+  "devtools_page": "devtools.html",
+  "event_rules": [{...}],
+  "externally_connectable": {
+    "matches": ["*://*.example.com/*"]
+  },
+  "file_browser_handlers": [...],
+  "file_system_provider_capabilities": {
+    "configurable": true,
+    "multiple_mounts": true,
+    "source": "network"
+  },
+  "homepage_url": "http://path/to/homepage",
+  "import": [{"id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}],
+  "incognito": "spanning, split, or not_allowed",
+  "input_components": ...,
+  "key": "publicKey",
+  "minimum_chrome_version": "versionString",
+  "nacl_modules": [...],
+  "oauth2": ...,
+  "offline_enabled": true,
+  "omnibox": {
+    "keyword": "aString"
+  },
+  "optional_permissions": ["tabs"],
+  "options_page": "options.html",
+  "options_ui": {
+    "chrome_style": true,
+    "page": "options.html"
+  },
+  "permissions": ["tabs"],
+  "platforms": ...,
+  "plugins": [...],
+  "requirements": {...},
+  "sandbox": [...],
+  "short_name": "Short Name",
+  "signature": ...,
+  "spellcheck": ...,
+  "storage": {
+    "managed_schema": "schema.json"
+  },
+  "system_indicator": ...,
+  "tts_engine": {...},
+  "update_url": "http://path/to/updateInfo.xml",
+  "version_name": "aString",
+  "web_accessible_resources": [...]
+}
+						</code>
+                    </pre>
+                </section>
+                <section>
+                    <pre>
+                        <code data-trim data-noescape>
+{
+    "manifest_version": 2,
+    "name": "Content Page",
+    "version": "1.0.0",
+
+    "content_scripts": [{
+        "js": ["index.js"],
+        "matches": ["<all_urls>"]
+    }]
+}
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <pre>
+                        <code data-trim data-noescape>
+{
+    "manifest_version": 2,
+    "name": "Browser Action",
+    "version": "1.0.0",
+
+    "browser_action": {
+        "default_title": "Popup tooltip content",
+        "default_popup": "popup.html"
+    }
+}                            
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <pre>
+                        <code data-trim data-noescape>
+{
+    "manifest_version": 2,
+    "name": "Background Page",
+    "version": "1.0.0",
+
+    "background": {
+        "scripts": ["background.js"]
+    }
+}                           
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <pre>
+                        <code data-trim data-noescape>
+{
+    "manifest_version": 2,
+    "name": "Connect Between Different Component",
+    "version": "1.0.0",
+
+    "background": {
+        "scripts": ["jquery.js","background.js"]
+    },
+
+    "browser_action": {
+        "default_title": "Popup tooltip content",
+        "default_popup": "popup.html"
+    },
+
+    "content_scripts": [{
+        "js": ["jquery.js","index.js"],
+        "matches": ["<all_urls>"]
+    }],
+
+    "permissions": [
+        "storage",
+        "tabs"
+    ]
+    
+}                            
+                        </code>
+                    </pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>content script</h1>
+                </section>
+                <section>
+                    <ul>
+                        <h5>Content Page</h5>
+                        <li>- No access is required to the websites source files</li>
+                        <li>- The extension shares assets with the page, so matching styling is easy</li>
+                        <li>- It allows one to visualise a demo or feature as if it were in production</li>
+                        <li>- No persistance of data</li>
+                        <li>- Runs in tabs</li>
+                        <li>- Limited chrome.* APIs</li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>Demo</h1>
+                    <p>Example 1</p>
+                </section>
+            </section>
+            
+            <section>
+                <section>
+                    <h1>Browser Action</h1>
+                </section>
+                <section>
+                    <ul>
+                        <h5>Browser Action</h5>
+                        <li>Popup page</li>
+                        <li>- No persistance of data</li>
+                        <li>Active only when popup is open</li>
+                        <li>Single Instance</li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>Demo</h1>
+                    <p>Example 2</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>Background</h1>
+                </section>
+                <section>
+                    <ul>
+                        <h5>Background Page</h5>
+                        <li>- persistance of data</li>
+                        <li>Fetch and store data from background page</li>
+                        <li>Single Instance</li>
+                        <li>full chrome.* APIs</li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>Demo</h1>
+                    <p>Example 3</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>Communication between components</h1>
+                </section>
+                
+                <section>
+                    <p>Sending from content script->bg or popup, bg->popup</p>
+                    <pre>
+                        <code data-trim data-noescape>
+chrome.runtime.sendMessage({greeting:"hello"},function(response){
+    console.log(response.farewell);
+});
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <p>Sending from background script to content script</p>
+                    <pre>
+                        <code data-trim data-noescape>
+chrome.tabs.query({active:true,currentWindow:true},function(tab){
+    chrome.tabs.sendMessage(tab[0].id, {greeting:'hello'},function(response){
+        console.log(response.farewell);
+    });
+});
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <p>Receiving from all</p>
+                    <pre>
+                        <code data-trim data-noescape>
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    console.log(sender.tab?"from content script" + sender.tab.url:"from the extension");
+    if(request.greeting==='hello'){
+        sendResponse({farewell:"goodbye"});
+    }
+});
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <ul>
+                        <h5>References</h5>
+                        <li>https://developer.chrome.com/extensions/runtime</li>
+                        <li>https://developer.chrome.com/extensions/tabs#method-sendMessage</li>
+                        <li>https://github.com/yeoman/generator-chrome-extension</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <img src="img/thankyou.png" alt="">
+            </section>
+        </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+        // More info about config & dependencies:
+        // - https://github.com/hakimel/reveal.js#configuration
+        // - https://github.com/hakimel/reveal.js#dependencies
+        Reveal.initialize({
+            dependencies: [{
+                src: 'plugin/markdown/marked.js'
+            }, {
+                src: 'plugin/markdown/markdown.js'
+            }, {
+                src: 'plugin/notes/notes.js',
+                async: true
+            }, {
+                src: 'plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }],
+            margin: 0.1,
+            progress: true,
+        });
+    </script>
+</body>
+
+</html>
